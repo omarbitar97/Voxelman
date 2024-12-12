@@ -8,6 +8,7 @@ public class VoxelizerAuthoring : MonoBehaviour
     [SerializeField] float _colorFrequency = 0.5f;
     [SerializeField] float _colorSpeed = 0.5f;
     [SerializeField] float _gravity = 0.2f;
+    [SerializeField] GameObject _prefab; // Add a field for the prefab
 
     class Baker : Baker<VoxelizerAuthoring>
     {
@@ -19,7 +20,8 @@ public class VoxelizerAuthoring : MonoBehaviour
                 VoxelLife = src._voxelLife,
                 ColorFrequency = src._colorFrequency,
                 ColorSpeed = src._colorSpeed,
-                Gravity = src._gravity
+                Gravity = src._gravity,
+                Prefab = GetEntity(src._prefab, TransformUsageFlags.Dynamic) // Bake the prefab
             };
             AddComponent(GetEntity(TransformUsageFlags.None), data);
         }
@@ -33,4 +35,6 @@ public struct Voxelizer : IComponentData
     public float ColorFrequency;
     public float ColorSpeed;
     public float Gravity;
+    public Entity Prefab; // Add this field
+
 }
